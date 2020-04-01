@@ -11,7 +11,7 @@ import android.util.Log
  *
  */
 
-const val COMMON_TAG = "example_common_log"
+const val COMMON_TAG = "example_common_log : "
 
 fun logI(msg: String) {
     Log.i(COMMON_TAG, msg)

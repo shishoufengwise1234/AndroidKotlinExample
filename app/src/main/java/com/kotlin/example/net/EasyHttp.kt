@@ -1,13 +1,12 @@
 package com.kotlin.example.net
 
 import com.google.gson.Gson
-import com.kotlin.example.Constants
-import com.kotlin.example.data.NewsData
+import com.kotlin.example.data.News
+import com.kotlin.example.utils.logE
 import com.kotlin.example.utils.logI
 import okhttp3.*
 import java.io.IOException
 import java.util.concurrent.TimeUnit
-import javax.net.ssl.HostnameVerifier
 
 /**
  * Created by shishoufeng on 2020-03-31.
@@ -29,7 +28,7 @@ class EasyHttp {
         .connectTimeout(30 * 1000L, TimeUnit.MILLISECONDS)
         .readTimeout(30 * 1000L, TimeUnit.MILLISECONDS)
         .writeTimeout(30 * 1000L, TimeUnit.MILLISECONDS)
-        .hostnameVerifier(HostnameVerifier { hostname, session -> true })
+//        .hostnameVerifier(HostnameVerifier { hostname, session -> true })
         .build()
 
     val mGson = Gson()
@@ -70,10 +69,12 @@ class EasyHttp {
      * 获取 新闻数据
      *
      */
-    fun getNews(type:String?,callback: NetCallBack<NewsData>){
+    fun getNews(url:String?,callback: NetCallBack<News>){
 
         // 拼接 请求地址
-        val reqUrl = "http://v.juhe.cn/toutiao/index?key=${Constants.APP_KEY}&type=${type ?: "top"}"
+//        val reqUrl = "http://v.juhe.cn/toutiao/index?key=${Constants.APP_KEY}&type=${type ?: "top"}"
+        // 请求URL
+        val reqUrl = url ?: "http://c.m.163.com/nc/article/headline/T1348647853363/0-40.html"
 
         logI(TAG,"getNews() reqUrl = $reqUrl ")
 
@@ -89,7 +90,15 @@ class EasyHttp {
 
                 logI(TAG,"getNews() -> onSuccess() data = $t")
 
-                val newsData = mGson.fromJson(t,NewsData::class.java)
+                val newsData : News = if (t.contains("<html>")){
+                    logE(TAG,"getNews() -> onSuccess() 数据不正确")
+
+                    News()
+                }else{
+                    logI(TAG,"getNews() -> onSuccess() 数据正确 可以解析")
+
+                    mGson.fromJson(t,News::class.java)
+                }
 
                 callback?.onSuccess(newsData)
 

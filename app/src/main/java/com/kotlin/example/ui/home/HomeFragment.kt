@@ -43,7 +43,10 @@ class HomeFragment : Fragment() {
                 list.add(NewsFragment().newInstance(en.value))
             }
 
+            viewPager.offscreenPageLimit = 2
             viewPager.adapter = NewsFragmentAdapter(childFragmentManager,list)
+            viewPager.currentItem = 0
+
             tabLayout.setViewPager(viewPager,titles)
 
 

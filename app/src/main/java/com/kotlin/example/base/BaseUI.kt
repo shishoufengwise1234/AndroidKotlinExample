@@ -3,11 +3,13 @@ package com.kotlin.example.base
 import android.app.Application
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
+import androidx.multidex.MultiDex
 
 /**
  * Created by shishoufeng on 2020-03-31.
@@ -50,13 +52,34 @@ abstract class BaseFragment : Fragment(){
 
 }
 
+class CommonUI private constructor(){
+
+    val mHandler = Handler(Looper.getMainLooper())
+
+    companion object{
+        val Instance = CommonUIHolder.mCommonUI
+    }
+
+
+    fun getAppHandler(): Handler {
+        return mHandler
+    }
+
+
+    private object CommonUIHolder{
+        val mCommonUI = CommonUI()
+    }
+
+}
+
+
 
 class ExampleApplication : Application(){
 
-    val handler =  Handler()
-
-
     override fun onCreate() {
         super.onCreate()
+
+        MultiDex.install(this)
+
     }
 }
