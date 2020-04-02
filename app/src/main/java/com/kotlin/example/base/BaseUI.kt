@@ -73,7 +73,7 @@ class CommonUI private constructor(){
 }
 
 
-
+//@GlideModule
 class ExampleApplication : Application(){
 
     override fun onCreate() {

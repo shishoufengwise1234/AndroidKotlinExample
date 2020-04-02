@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
@@ -61,7 +62,7 @@ class NewsListAdapter(con: Context) : BaseMultiItemQuickAdapter<News.Data,BaseVi
                     .centerCrop()
                     .placeholder(R.drawable.ic_launcher_foreground)
                     .error(R.drawable.ic_launcher_foreground)
-                    .into(holder.getView(R.id.iv_news_img))
+                    .into(holder.getView(R.id.iv_new_img))
 
                 holder.itemView.setOnClickListener{
                     val intent = Intent()
@@ -91,4 +92,12 @@ class NewsTopViewHolder(view: View) : BaseViewHolder(view)
  * 正常左文右图 类型新闻
  *
  */
-class NewsNormalHolder(view: View) : BaseViewHolder(view)
+class NewsNormalHolder(view: View) : BaseViewHolder(view){
+
+
+    var ivNewsPic : ImageView? = null
+
+    init {
+        ivNewsPic = view.findViewById(R.id.iv_new_img)
+    }
+}

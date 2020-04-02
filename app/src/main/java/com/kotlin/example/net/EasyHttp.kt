@@ -7,6 +7,7 @@ import com.kotlin.example.utils.logI
 import okhttp3.*
 import java.io.IOException
 import java.util.concurrent.TimeUnit
+import javax.net.ssl.HostnameVerifier
 
 /**
  * Created by shishoufeng on 2020-03-31.
@@ -28,7 +29,7 @@ class EasyHttp {
         .connectTimeout(30 * 1000L, TimeUnit.MILLISECONDS)
         .readTimeout(30 * 1000L, TimeUnit.MILLISECONDS)
         .writeTimeout(30 * 1000L, TimeUnit.MILLISECONDS)
-//        .hostnameVerifier(HostnameVerifier { hostname, session -> true })
+        .hostnameVerifier(HostnameVerifier { hostname, session -> true })
         .build()
 
     val mGson = Gson()
@@ -39,6 +40,8 @@ class EasyHttp {
         val request = Request.Builder()
             .get()
             .url(url)
+            .addHeader("cache-control", "no-cache")
+            .addHeader("postman-token", "0af4c329-4c89-7269-9e76-475ddc903d7e")
             .build()
 
         mOkHttpClient.newCall(request)
