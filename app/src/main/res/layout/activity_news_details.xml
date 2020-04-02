@@ -11,12 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/toolbar"
+        android:background="@color/colorAccent"
+        app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+        app:title="详情"
+        app:titleTextColor="@color/white"
         />
+
     <ProgressBar
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="3dp"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:id="@+id/progressbar"
+        android:background="@color/black"
         />
 
     <WebView
